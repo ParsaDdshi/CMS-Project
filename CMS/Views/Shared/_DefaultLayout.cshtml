@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CMS | @ViewData["Title"]</title>
+  <partial name="_MetaTags"/>
+  <partial name="_Styles"/>
+</head>
+
+<body>
+  <partial name="_Navbar"/>
+  @RenderSection("SearchBox", false)
+
+  <main id="main">
+    @RenderBody()
+  </main>
+
+  <partial name="_Footer"/>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <partial name="_Scripts"/>
+
+</body>
+</html>
