@@ -1,4 +1,4 @@
-﻿using CMS.Models;
+using CMS.Models;
 
 namespace CMS.Services.Interfaces
 {
@@ -7,5 +7,7 @@ namespace CMS.Services.Interfaces
         List<Item> GetItems(int count = 9);
         List<Item> GetFavouriteItems(int count = 6);
         List<Category> GetCategories();
+        List<Item> GetCategoryItems(int categoryId);
+        void Save();
     }
 }
