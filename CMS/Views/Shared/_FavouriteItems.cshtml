@@ -1,0 +1,18 @@
+﻿@using CMS.Services.Interfaces;
+@inject IItemService _itemService
+
+ <!-- ======= Favourite Items Section ======= -->
+    <section id="service" class="services pt-0">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <span>Favourite Items</span>
+          <h2>Favourite Items</h2>
+        </div>
+        <div class="row gy-4">
+            @foreach(var item in _itemService.GetFavouriteItems())
+            {
+                  <partial name="_ItemBox" model="item"/>
+            }
+        </div>
+      </div>
+    </section><!-- End Favourite Items Section -->
