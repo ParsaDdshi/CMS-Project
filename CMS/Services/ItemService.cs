@@ -1,4 +1,4 @@
-﻿using CMS.Context;
+using CMS.Context;
 using CMS.Models;
 using CMS.Services.Interfaces;
 
@@ -13,6 +13,14 @@ namespace CMS.Services
 
         public List<Item> GetFavouriteItems(int count = 6) => _context.Items.OrderByDescending(i => i.Views).Take(count).ToList();
 
-        public List<Item> GetItems(int count = 9) => _context.Items.OrderBy(i => i.CreateDate).Take(count).ToList();      
+        public List<Item> GetCategoryItems(int categoryId)
+        {
+            return _context.CategoriesToItems.Where(c => c.CategoryId == categoryId)
+                .Include(i => i.Item).Select(i => i.Item).ToList();
+        }
+
+        public List<Item> GetItems(int count = 9) => _context.Items.OrderBy(i => i.CreateDate).Take(count).ToList();
+
+        public void Save() => _context.SaveChanges();
     }
 }
