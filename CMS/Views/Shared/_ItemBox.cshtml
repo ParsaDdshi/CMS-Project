@@ -3,9 +3,9 @@
 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
   <div class="card">
     <div class="card-img">
-      <img src="/assets/img/test.jpg" alt="" class="img-fluid">
+      <img src="/assets/img/@(Model.ItemId).jpg" alt="" class="img-fluid">
     </div>
-    <h3><a href="#" class="stretched-link">@Model.Title</a></h3>
+    <h3><a asp-controller="Home" asp-action="Details" asp-route-id="@Model.ItemId" class="stretched-link">@Model.Title</a></h3>
     <p class="text-truncate">@Model.Text</p>
     <p>
       <span>Views : @Model.Views</span>

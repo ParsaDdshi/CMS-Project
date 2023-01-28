@@ -1,0 +1,51 @@
+﻿@model DetailViewModel
+
+@section SearchBox
+{
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>@Model.Title</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li>@Model.Title</li>
+          </ol>
+        </div>
+      </nav>
+    </div>
+}
+
+<section id="service-details" class="service-details">
+  <div class="container" data-aos="fade-up">
+  <div class="row gy-4">
+    <div class="col-lg-4">
+      <div class="services-list">
+        @foreach (var item in Model.CategoriesName)
+        {
+          <a asp-controller="Home" asp-action="ShowItemsByCategory"
+          asp-route-id="@item.CategoryId" asp-route-categoryName="@item.CategoryName">@item.CategoryName</a>
+        }
+
+      </div>  
+    </div>
+    <div class="col-lg-8">
+      <h3>@Model.Title</h3>
+      <img src="/assets/img/@(Model.ItemId).jpg" alt="" class="img-fluid services-img">
+      <p>
+        @Model.Text
+      </p>
+      <p>
+        <span>Views : @Model.Views</span>
+        <span class="float-end">Create Date : @Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</span>
+      </p>
+    </div>
+  </div>
+</section>

@@ -151,7 +151,14 @@ namespace CMS.Context
                 new CategoryToItem() { CategoryId = 2, ItemId = 9 },
                 new CategoryToItem() { CategoryId = 2, ItemId = 10 },
                 new CategoryToItem() { CategoryId = 3, ItemId = 11 },
-                new CategoryToItem() { CategoryId = 3, ItemId = 12 }
+                new CategoryToItem() { CategoryId = 3, ItemId = 12 },
+                new CategoryToItem() { CategoryId = 2, ItemId = 1 },
+                new CategoryToItem() { CategoryId = 1, ItemId = 2 },
+                new CategoryToItem() { CategoryId = 3, ItemId = 3 },
+                new CategoryToItem() { CategoryId = 3, ItemId = 4 },
+                new CategoryToItem() { CategoryId = 3, ItemId = 10 },
+                new CategoryToItem() { CategoryId = 2, ItemId = 11 },
+                new CategoryToItem() { CategoryId = 1, ItemId = 12 }
             );
             #endregion
 
