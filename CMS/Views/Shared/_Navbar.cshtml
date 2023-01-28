@@ -11,16 +11,9 @@
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a asp-controller="Home" asp-action="Index">Home</a></li>
           <li><a href="#">About</a></li>
-          <li class="dropdown"><a href="#"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Category</a></li>
-              <li><a href="#">Category</a></li>
-              <li><a href="#">Category</a></li>
-              <li><a href="#">Category</a></li>
-            </ul>
-          </li>
+          <partial name="_CategoriesInNavbar"/>
           <li><a href="#">Contact</a></li>
         </ul>
       </nav>

@@ -1,7 +1,18 @@
+using CMS.Context;
+using CMS.Services;
+using CMS.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<CMSContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("CMSConnection"));
+    }
+);
+builder.Services.AddScoped<IItemService, ItemService>();
 
 var app = builder.Build();
 

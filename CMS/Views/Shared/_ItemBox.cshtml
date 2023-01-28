@@ -1,0 +1,15 @@
+﻿@model Item
+
+<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+  <div class="card">
+    <div class="card-img">
+      <img src="/assets/img/test.jpg" alt="" class="img-fluid">
+    </div>
+    <h3><a href="#" class="stretched-link">@Model.Title</a></h3>
+    <p class="text-truncate">@Model.Text</p>
+    <p>
+      <span>Views : @Model.Views</span>
+      <span class="float-end">Create Date : @Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</span>
+    </p>
+  </div>
+</div>
