@@ -5,7 +5,10 @@
   <ul>
     @foreach(var item in _itemService.GetCategories())
     {
-      <li><a href="#">@item.CategoryName</a></li>
+      <li><a asp-controller="Home"
+             asp-action="ShowItemsByCategory"
+             asp-route-id="@item.CategoryId"
+             asp-route-CategoryName="@item.CategoryName">@item.CategoryName</a></li>
     }
         
   </ul>
