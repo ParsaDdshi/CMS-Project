@@ -1,6 +1,7 @@
-using CMS.Context;
+﻿using CMS.Context;
 using CMS.Models;
 using CMS.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.Services
 {
@@ -13,10 +14,17 @@ namespace CMS.Services
 
         public List<Item> GetFavouriteItems(int count = 6) => _context.Items.OrderByDescending(i => i.Views).Take(count).ToList();
 
+        public Item GetItemById(int? id) => _context.Items.FirstOrDefault(i => i.ItemId == id);
         public List<Item> GetCategoryItems(int categoryId)
         {
             return _context.CategoriesToItems.Where(c => c.CategoryId == categoryId)
                 .Include(i => i.Item).Select(i => i.Item).ToList();
+        }
+
+        public List<Category> GetItemCategories(int itemId)
+        {
+            return _context.CategoriesToItems.Where(i => i.ItemId == itemId)
+                .Include(c => c.Category).Select(c => c.Category).ToList();
         }
 
         public List<Item> GetItems(int count = 9) => _context.Items.OrderBy(i => i.CreateDate).Take(count).ToList();
