@@ -1,7 +1,8 @@
-using CMS.Models;
+﻿using CMS.Models;
 using CMS.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace CMS.Controllers
 {
@@ -15,6 +16,26 @@ namespace CMS.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            var item = _itemService.GetItemById(id);
+            var categories = _itemService.GetItemCategories(id);
+
+            DetailViewModel viewModel = new DetailViewModel()
+            {
+                ItemId = item.ItemId,
+                Title = item.Title,
+                Text = item.Text,
+                Views = item.Views,
+                CreateDate = item.CreateDate,
+                CategoriesName = categories
+            };
+
+            item.Views++;
+            _itemService.Save();
+
+            return View(viewModel);
+        }
 
         public IActionResult ShowItemsByCategory(int id, string categoryName)
         {
