@@ -1,4 +1,5 @@
 ﻿using CMS.Models;
+using System.Reflection.Metadata;
 
 namespace CMS.Services.Interfaces
 {
@@ -8,5 +9,6 @@ namespace CMS.Services.Interfaces
         void Save();
         bool IsExistByEmail(string email);
         bool IsExistByUserName(string userName);
+        User GetUserForLogin(string userNameOrEmail, string password);
     }
 }
