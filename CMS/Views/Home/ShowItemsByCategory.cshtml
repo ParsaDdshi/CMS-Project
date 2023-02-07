@@ -1,29 +1,18 @@
 ﻿@model List<Item>
 
+@{
+    ViewData["Title"] = ViewBag.CategoryName;
+    ViewData["PageName"] = ViewBag.CategoryName;
+    ViewData["Name"] = ViewBag.CategoryName;
+}
+
 <!DOCTYPE html>
 
 @section SearchBox
 {
-    <div class="breadcrumbs">
-          <div class="page-header d-flex align-items-center">
-            <div class="container position-relative">
-              <div class="row d-flex justify-content-center">
-                <div class="col-lg-6 text-center">
-                  <h2>@ViewBag.CategoryName</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <nav>
-            <div class="container">
-              <ol>
-                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li>@ViewBag.CategoryName</li>
-              </ol>
-            </div>
-          </nav>
-    </div>
+    <partial name="_SearchBox"/>
 }
+
 
 <section id="service" class="services pt-0">
   <div class="container" data-aos="fade-up">
