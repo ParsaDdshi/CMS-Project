@@ -1,0 +1,39 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Success Registeration";
+}
+
+@section SearchBox
+{
+        <div class="breadcrumbs">
+          <div class="page-header d-flex align-items-center" style="background-image: url('assets/img/page-header.jpg');">
+            <div class="container position-relative">
+              <div class="row d-flex justify-content-center">
+                <div class="col-lg-6 text-center">
+                  <h2>Registeration was Successful</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav>
+            <div class="container">
+              <ol>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li>Successful Registeration</li>
+              </ol>
+            </div>
+          </nav>
+        </div>
+}
+
+<section class="sample-page">
+  <div class="container" data-aos="fade-up">
+    <div class="alert alert-success">
+      <h6>Hello, @Model.UserName</h6>
+      <p>Your registeration was successful.</p>
+      <p>Click on the link below to enter the site.</p>
+      <a href="#">Login</a>
+    </div>
+  </div>
+</section>
