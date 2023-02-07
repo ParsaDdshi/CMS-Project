@@ -15,6 +15,8 @@ namespace CMS.Services
                 (u.UserName == userNameOrEmail || u.Email == userNameOrEmail) && u.Password == password);
         }
 
+        public User GetUserForProfile(int userId) => _context.Users.SingleOrDefault(u => u.UserId == userId);
+
         public void InsertUser(User user) => _context.Users.Add(user);
 
         public bool IsExistByEmail(string email) => _context.Users.Any(u => u.Email == email);
