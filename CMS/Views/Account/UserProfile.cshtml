@@ -1,0 +1,49 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["PageName"] = "User Profile";
+    ViewData["Name"] = "Profile";
+}
+
+
+@section SearchBox
+{
+    <partial name="_SearchBox"/>
+}
+
+
+<section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4 service-details">
+            <partial name="_UserProfileSidebar"/>
+          <div class="col-lg-9 content order-last  order-lg-first">
+            <h3>Profile</h3>
+            <ul>
+              <li data-aos="fade-up" data-aos-delay="100">
+                <i class="bi bi-person-circle"></i>
+                <div>
+                  <h5>User Name : @Model.UserName</h5>
+                </div>
+              </li>
+              <li data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-envelope-fill"></i>
+                <div>
+                  <h5>Email : @Model.Email</h5>
+                </div>
+              </li>
+              <li data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-calendar-check-fill"></i>
+                <div>
+                  <h5>Register Date : @Model.RegisterDate.ToString("yyyy/MM/dd HH:mm")</h5>
+                </div>
+              </li>
+            </ul>
+            <a asp-controller="Account"
+            asp-action="Logout" 
+            class="btn btn-danger float-end">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
