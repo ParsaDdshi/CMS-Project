@@ -69,7 +69,8 @@ namespace CMS.Controllers
                 new Claim("UserId", user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim("Email", user.Email),
-                new Claim("Password", user.Password)
+                new Claim("Password", user.Password),
+                new Claim("RegisterDate", user.RegisterDate.ToString())
             };
 
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -91,6 +92,7 @@ namespace CMS.Controllers
         }
         #endregion
 
+        #region User Profile
         public IActionResult UserProfile()
         {
             User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
@@ -99,7 +101,6 @@ namespace CMS.Controllers
 
             UserProfileViewModel userProfileViewModel = new UserProfileViewModel()
             {
-                UserId = user.UserId,
                 UserName = user.UserName,
                 Email= user.Email,
                 RegisterDate = user.RegisterDate
@@ -107,5 +108,45 @@ namespace CMS.Controllers
 
             return View(userProfileViewModel);
         }
+        #endregion
+
+        #region EditInformation
+        public IActionResult EditInformation()
+        {
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            if (user == null)
+                return NotFound();
+
+            EditInformationViewModel editInformationViewModel = new EditInformationViewModel()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+            };
+
+            return View(editInformationViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditInformation(EditInformationViewModel editInformationViewModel)
+        {
+            if(editInformationViewModel.Password != User.FindFirst("Password").Value)
+            {
+                ModelState.AddModelError("Password", "Your password is incorrecr.");
+                return View(editInformationViewModel);
+            }
+            User user = new User()
+            {
+                UserName = editInformationViewModel.UserName,
+                Email = editInformationViewModel.Email,
+                Password = editInformationViewModel.Password,
+                UserId = int.Parse(User.FindFirst("UserId").Value),
+                RegisterDate = DateTime.Parse(User.FindFirst("RegisterDate").Value)
+            };
+            _accountService.UpdateUser(user);
+            _accountService.Save();
+
+            return Redirect("UserProfile");
+        }
+        #endregion
     }
 }

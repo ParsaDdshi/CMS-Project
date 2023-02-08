@@ -11,5 +11,6 @@ namespace CMS.Services.Interfaces
         bool IsExistByUserName(string userName);
         User GetUserForLogin(string userNameOrEmail, string password);
         User GetUserForProfile(int userId);
+        void UpdateUser(User user);
     }
 }
