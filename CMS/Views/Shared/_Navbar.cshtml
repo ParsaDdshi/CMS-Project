@@ -3,8 +3,15 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <h6 href="#" class="logo d-flex align-items-center">
-        <a asp-controller="Account" asp-action="Register" class="text-white">Register/ </a>
-        <a href="#" class="text-white"> Login </a>       
+            @if(User.Identity.IsAuthenticated)
+            {
+              <a asp-controller="Account" asp-action="UserProfile" class="text-white">@User.Identity.Name Profile </a> 
+            }
+            else
+            {
+              <a asp-controller="Account" asp-action="Register" class="text-white">Register/ </a>
+              <a asp-controller="Account" asp-action="Login" class="text-white"> Login </a>    
+            }              
       </h6>
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>

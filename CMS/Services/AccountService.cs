@@ -9,6 +9,14 @@ namespace CMS.Services
         private readonly CMSContext _context;
         public AccountService(CMSContext context) => _context = context;
 
+        public User GetUserForLogin(string userNameOrEmail, string password)
+        {
+            return _context.Users.SingleOrDefault(u =>
+                (u.UserName == userNameOrEmail || u.Email == userNameOrEmail) && u.Password == password);
+        }
+
+        public User GetUserForProfile(int userId) => _context.Users.SingleOrDefault(u => u.UserId == userId);
+
         public void InsertUser(User user) => _context.Users.Add(user);
 
         public bool IsExistByEmail(string email) => _context.Users.Any(u => u.Email == email);
