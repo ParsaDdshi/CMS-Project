@@ -66,7 +66,7 @@ namespace CMS.Controllers
 
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim("UserId", user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim("Email", user.Email),
                 new Claim("Password", user.Password)
@@ -90,5 +90,22 @@ namespace CMS.Controllers
             return Redirect("/");
         }
         #endregion
+
+        public IActionResult UserProfile()
+        {
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            if(user == null)
+                return NotFound();
+
+            UserProfileViewModel userProfileViewModel = new UserProfileViewModel()
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Email= user.Email,
+                RegisterDate = user.RegisterDate
+            };
+
+            return View(userProfileViewModel);
+        }
     }
 }

@@ -5,8 +5,7 @@
       <h6 href="#" class="logo d-flex align-items-center">
             @if(User.Identity.IsAuthenticated)
             {
-              <a href="#" class="text-white">@User.Identity.Name Profile/ </a>
-              <a asp-controller="Account" asp-action="Logout" class="text-white"> Logout </a>  
+              <a asp-controller="Account" asp-action="UserProfile" class="text-white">@User.Identity.Name Profile </a> 
             }
             else
             {
