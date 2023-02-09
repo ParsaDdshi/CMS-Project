@@ -1,4 +1,4 @@
-﻿using CMS.Context;
+using CMS.Context;
 using CMS.Models;
 using CMS.Services.Interfaces;
 
@@ -24,7 +24,5 @@ namespace CMS.Services
         public bool IsExistByUserName(string userName) => _context.Users.Any(u =>u.UserName == userName);
 
         public void Save() => _context.SaveChanges();
-
-        public void UpdateUser(User user) => _context.Users.Update(user);
     }
 }

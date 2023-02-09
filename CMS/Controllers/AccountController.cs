@@ -1,7 +1,8 @@
-﻿using CMS.Models;
+using CMS.Models;
 using CMS.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -110,7 +111,7 @@ namespace CMS.Controllers
         }
         #endregion
 
-        #region EditInformation
+        #region Edit Information
         public IActionResult EditInformation()
         {
             User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
@@ -127,14 +128,29 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult EditInformation(EditInformationViewModel editInformationViewModel)
         {
-            if(editInformationViewModel.Password != User.FindFirst("Password").Value)
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+
+            if (user == null)
+                return NotFound();
+
+            if (editInformationViewModel.Password != user.Password)
             {
-                ModelState.AddModelError("Password", "Your password is incorrecr.");
+                ModelState.AddModelError("Password", "Your password is incorrect.");
                 return View(editInformationViewModel);
             }
-            User user = new User()
+
+            user.Email = editInformationViewModel.Email;
+            user.UserName = editInformationViewModel.UserName;
+
+            _accountService.Save();
+
+            return Redirect("UserProfile");
+        }
+        #endregion
+
             {
                 UserName = editInformationViewModel.UserName,
                 Email = editInformationViewModel.Email,
