@@ -44,6 +44,15 @@ namespace CMS.Controllers
             return View(items);
         }
 
+        public IActionResult Search(string searchString)
+        {
+            if(searchString == null)
+                return View("Index");
+
+            List<Item> items = _itemService.Search(searchString);
+            return View(items);
+        }
+
         public IActionResult Privacy()
         {
             return View();
