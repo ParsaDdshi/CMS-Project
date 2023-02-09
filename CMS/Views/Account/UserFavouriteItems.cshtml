@@ -1,0 +1,60 @@
+﻿@model List<Item>
+
+@{
+    ViewData["Title"] = "Favourite Items";
+    ViewData["PageName"] = "User Favourite Items";
+    ViewData["Name"] = "Favourite Items";
+}
+
+@section SearchBox
+{
+    <partial name="_SearchBox"/>
+}
+
+    <section id="service" class="services pt-0">
+    <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <span>User Favourite Items</span>
+          <h2>User Favourite Items</h2>
+        </div>
+        <div class="row gy-4">
+            @if(Model.Count() == 0)
+            {
+                <div class="alert alert-danger">
+                    <h5>
+                        There are no items in the User Favourite List.
+                    </h5>
+                </div>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card row">
+                          <div class="card-img">
+                            <img src="/assets/img/@(item.ItemId).jpg" alt="" class="img-fluid">
+                          </div>
+                          <h3><a asp-controller="Home" asp-action="Details" asp-route-id="@item.ItemId">@item.Title</a></h3>
+                          <p class="text-truncate">@item.Text</p>
+                          <p>
+                            <span>Views : @item.Views</span>
+                            <span class="float-end">Create Date : @item.CreateDate.ToString("yyyy/MM/dd HH:mm")</span>
+                            <p class="text-center">
+                              <a asp-controller="Account" asp-action="RemoveItemFromUserFavItemsInUFIPage"
+                                asp-route-itemId="@item.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)"  
+                                class="btn btn-outline-danger">
+                                <i class="bi bi-file-x-fill"></i>
+                                remove @item.Title from favourite list
+                              </a>
+                            </p>
+                          </p>
+                        </div>
+                      </div>
+                } 
+            }
+        </div>
+    </div>
+    </section>
+
+
