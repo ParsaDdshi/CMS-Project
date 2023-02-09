@@ -1,4 +1,6 @@
-﻿@model DetailViewModel
+﻿@using CMS.Services.Interfaces;
+@model DetailViewModel
+@inject IAccountService _accountService
 
 @{
     ViewData["Title"] = Model.Title;
@@ -23,7 +25,23 @@
           <a asp-controller="Home" asp-action="ShowItemsByCategory"
           asp-route-id="@item.CategoryId" asp-route-categoryName="@item.CategoryName">@item.CategoryName</a>
         }
-
+        @if (_accountService.IsItemExistInUFI(Model.ItemId, int.Parse(User.FindFirst("UserId").Value)))
+        {
+          <a asp-controller="Account" asp-action="RemoveItemFromUserFavItemsInDetailsPage"
+            asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)"  
+            class="btn btn-outline-danger">
+            <i class="bi bi-file-x-fill"></i>
+            remove @Model.Title from favourite list
+          </a>
+        }
+        else
+        {
+          <a asp-controller="Account" asp-action="AddItemToUserFavItems" 
+            asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)" class="btn btn-outline-danger">
+              <i class="bi bi-heart"></i>
+              Add @Model.Title to my favourites
+          </a>
+        }
       </div>  
     </div>
     <div class="col-lg-8">
