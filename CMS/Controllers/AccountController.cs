@@ -1,4 +1,4 @@
-using CMS.Models;
+﻿using CMS.Models;
 using CMS.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -151,14 +151,29 @@ namespace CMS.Controllers
         }
         #endregion
 
+        #region Change Password
+        [Authorize]
+        public IActionResult ChangePassword() => View();
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+
+            if(!ModelState.IsValid)
+                return View(changePasswordViewModel);
+
+            if (user == null)
+                return NotFound();
+
+            if (changePasswordViewModel.OldPassword != user.Password)
             {
-                UserName = editInformationViewModel.UserName,
-                Email = editInformationViewModel.Email,
-                Password = editInformationViewModel.Password,
-                UserId = int.Parse(User.FindFirst("UserId").Value),
-                RegisterDate = DateTime.Parse(User.FindFirst("RegisterDate").Value)
-            };
-            _accountService.UpdateUser(user);
+                ModelState.AddModelError("OldPassword", "The password entered is incorrect.");
+                return View(changePasswordViewModel);
+            }
+
+            user.Password = changePasswordViewModel.NewPassword;
             _accountService.Save();
 
             return Redirect("UserProfile");
