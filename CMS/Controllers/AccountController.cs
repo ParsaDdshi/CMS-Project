@@ -2,6 +2,7 @@
 using CMS.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -110,7 +111,7 @@ namespace CMS.Controllers
         }
         #endregion
 
-        #region EditInformation
+        #region Edit Information
         public IActionResult EditInformation()
         {
             User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
@@ -127,22 +128,52 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult EditInformation(EditInformationViewModel editInformationViewModel)
         {
-            if(editInformationViewModel.Password != User.FindFirst("Password").Value)
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+
+            if (user == null)
+                return NotFound();
+
+            if (editInformationViewModel.Password != user.Password)
             {
-                ModelState.AddModelError("Password", "Your password is incorrecr.");
+                ModelState.AddModelError("Password", "Your password is incorrect.");
                 return View(editInformationViewModel);
             }
-            User user = new User()
+
+            user.Email = editInformationViewModel.Email;
+            user.UserName = editInformationViewModel.UserName;
+
+            _accountService.Save();
+
+            return Redirect("UserProfile");
+        }
+        #endregion
+
+        #region Change Password
+        [Authorize]
+        public IActionResult ChangePassword() => View();
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+
+            if(!ModelState.IsValid)
+                return View(changePasswordViewModel);
+
+            if (user == null)
+                return NotFound();
+
+            if (changePasswordViewModel.OldPassword != user.Password)
             {
-                UserName = editInformationViewModel.UserName,
-                Email = editInformationViewModel.Email,
-                Password = editInformationViewModel.Password,
-                UserId = int.Parse(User.FindFirst("UserId").Value),
-                RegisterDate = DateTime.Parse(User.FindFirst("RegisterDate").Value)
-            };
-            _accountService.UpdateUser(user);
+                ModelState.AddModelError("OldPassword", "The password entered is incorrect.");
+                return View(changePasswordViewModel);
+            }
+
+            user.Password = changePasswordViewModel.NewPassword;
             _accountService.Save();
 
             return Redirect("UserProfile");
