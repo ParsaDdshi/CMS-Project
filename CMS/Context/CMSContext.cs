@@ -12,11 +12,15 @@ namespace CMS.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryToItem> CategoriesToItems { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserFavouriteItem> UserFavouriteItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CategoryToItem>()
                 .HasKey(k => new { k.CategoryId, k.ItemId });
+
+            modelBuilder.Entity<UserFavouriteItem>()
+                .HasKey(k => new { k.UserId, k.ItemId });
 
             #region Category Seed Date
             modelBuilder.Entity<Category>().HasData(

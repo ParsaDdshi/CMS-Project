@@ -25,5 +25,8 @@ namespace CMS.Models
         public DateTime RegisterDate { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        // Navigation Property
+        public List<UserFavouriteItem> UserFavouriteItems { get; set; }
     }
 }

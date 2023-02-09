@@ -20,5 +20,6 @@ namespace CMS.Models
 
         // Navigation Property
         public List<CategoryToItem> CategoriesToItems { get; set; }
+        public List<UserFavouriteItem> UserFavouriteItems { get; set; }
     }
 }

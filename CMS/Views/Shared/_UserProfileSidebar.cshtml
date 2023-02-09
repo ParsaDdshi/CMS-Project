@@ -3,5 +3,7 @@
     <a asp-controller="Account" asp-action="UserProfile">Profile</a>
     <a asp-controller="Account" asp-action="EditInformation">Edit Information</a>
     <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+    <a asp-controller="Account" asp-action="UserFavouriteItems"
+    asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)">Favourit Items</a>
   </div>  
 </div>
