@@ -96,7 +96,7 @@ namespace CMS.Controllers
         #region User Profile
         public IActionResult UserProfile()
         {
-            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
             if(user == null)
                 return NotFound();
 
@@ -114,7 +114,7 @@ namespace CMS.Controllers
         #region Edit Information
         public IActionResult EditInformation()
         {
-            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
             if (user == null)
                 return NotFound();
 
@@ -131,7 +131,7 @@ namespace CMS.Controllers
         [Authorize]
         public IActionResult EditInformation(EditInformationViewModel editInformationViewModel)
         {
-            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
 
             if (user == null)
                 return NotFound();
@@ -159,7 +159,7 @@ namespace CMS.Controllers
         [Authorize]
         public IActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
         {
-            User user = _accountService.GetUserForProfile(int.Parse(User.FindFirst("UserId").Value));
+            User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
 
             if(!ModelState.IsValid)
                 return View(changePasswordViewModel);
@@ -177,6 +177,45 @@ namespace CMS.Controllers
             _accountService.Save();
 
             return Redirect("UserProfile");
+        }
+        #endregion
+
+        #region User Favourite Items
+        [Authorize]
+        public IActionResult AddItemToUserFavItems(int userId, int itemId)
+        {
+            _accountService.AddItemToUserFavItems(userId, itemId);
+            _accountService.Save();
+            return RedirectToAction("Details","Home" ,new {id = itemId});
+        }
+
+        [Authorize]
+        public void RemoveItemFromUserFavItems(int userId, int itemId)
+        {
+            _accountService.RemoveItemFromUserFavItems(userId, itemId);
+            _accountService.Save();
+        }
+
+        [Authorize]
+        public IActionResult UserFavouriteItems(int userId)
+        {
+            List<Item> items = _accountService.GetUserFavouriteItems(userId);
+            return View(items);
+        }
+
+        [Authorize]
+        public IActionResult RemoveItemFromUserFavItemsInDetailsPage(int userId, int itemId)
+        {
+            RemoveItemFromUserFavItems(userId, itemId);
+            return RedirectToAction("Details", "Home", new { id = itemId });
+        }
+
+        [Authorize] 
+        // UFI = User Favourite Items
+        public IActionResult RemoveItemFromUserFavItemsInUFIPage(int userId, int itemId)
+        {
+            RemoveItemFromUserFavItems(userId, itemId);
+            return RedirectToAction("UserFavouriteItems", "Account", new { userId = userId });
         }
         #endregion
     }
