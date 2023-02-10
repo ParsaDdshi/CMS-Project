@@ -19,9 +19,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-          <li><a href="#">About</a></li>
+          <li><a asp-controller="Home" asp-action="About">About</a></li>
           <partial name="_CategoriesInNavbar"/>
-          <li><a href="#">Contact</a></li>
+          <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
         </ul>
       </nav>
     </div>

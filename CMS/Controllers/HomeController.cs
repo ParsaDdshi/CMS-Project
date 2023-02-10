@@ -44,10 +44,18 @@ namespace CMS.Controllers
             return View(items);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Search(string searchString)
         {
-            return View();
+            if(searchString == null)
+                return View("Index");
+
+            List<Item> items = _itemService.Search(searchString);
+            return View(items);
         }
+
+        public IActionResult About() => View();
+
+        public IActionResult Contact() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

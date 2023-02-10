@@ -11,5 +11,6 @@ namespace CMS.Services.Interfaces
         List<Item> GetCategoryItems(int categoryId);
         List<Category> GetItemCategories(int itemId);
         void Save();
+        List<Item> Search(string search);
     }
 }

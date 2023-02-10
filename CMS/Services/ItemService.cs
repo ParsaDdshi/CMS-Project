@@ -30,5 +30,9 @@ namespace CMS.Services
         public List<Item> GetItems(int count = 9) => _context.Items.OrderBy(i => i.CreateDate).Take(count).ToList();
 
         public void Save() => _context.SaveChanges();
+
+        public List<Item> Search(string search) => _context.Items
+            .Where(s => s.Title.Contains(search) || s.Text.Contains(search))
+            .OrderByDescending(i => i.Views).ToList();
     }
 }
