@@ -1,0 +1,43 @@
+﻿@page
+@model CMS.Pages.Admin.EditModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Edit Item</h3>
+<hr />
+
+<form method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label asp-for="ItemViewModel.Title"></label>
+    <input asp-for="ItemViewModel.Title" class="form-control">
+  </div> <br />
+  <div class="form-group">
+    <label asp-for="ItemViewModel.Text"></label>
+    <textarea asp-for="ItemViewModel.Text" class="form-control"></textarea>
+  </div> <br />
+  <div class="form-check">
+    <label asp-for="ItemViewModel.Picture"></label>
+    <input asp-for="ItemViewModel.Picture" class="form-control">
+  </div> <br />
+  <div class="form-group">
+    <label class="form-check-label" asp-for="ItemViewModel.Categories"></label> <br /> <br />
+        @foreach (var item in Model.ItemViewModel.Categories)
+        {
+          <p>
+            <input type="checkbox" class="form-check-input" name="SelectedGroups" value="@item.CategoryId"
+            @((Model.ItemCategories.Any(c => c == item.CategoryId)? "checked":""))> @item.CategoryName
+          </p>
+        }
+  </div>
+
+  <div asp-validation-summary="All" class="text-danger"></div>
+
+  <button type="submit" class="btn btn-warning">Edit</button>
+  <a asp-page="./Index"> | Return to table</a>
+</form>
+
+@section Scripts
+    {
+      <partial name="_ValidationScriptsPartial"/>
+}
