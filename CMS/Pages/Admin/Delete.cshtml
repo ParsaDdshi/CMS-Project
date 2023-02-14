@@ -1,0 +1,64 @@
+﻿@page
+@model CMS.Pages.Admin.DeleteModel
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Delete</h3>
+<h5>Are you sure to delete this item?</h5>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemViewModel.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.Text)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemViewModel.Text)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.CreateDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemViewModel.CreateDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.Views)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ItemViewModel.Views)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.Picture)
+        </dt>
+        <dd class="col-sm-10">
+          <div class="card-img">
+            <img src="/assets/img/@(@ViewData["ItemId"]).jpg" alt="" class="admin-index-img-size">
+          </div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemViewModel.Categories)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.ItemViewModel.Categories)
+            {
+                  <p>
+                    <input disabled type="checkbox" class="form-check-input" name="SelectedGroups" value="@item.CategoryId"
+                  @((Model.ItemCategories.Any(c => c == item.CategoryId)? "checked":""))> @item.CategoryName
+                  </p>
+            }
+        </dd>
+    </dl>
+    <form method="post">
+      <input type="submit" class="btn btn-danger" asp-page="Delete" asp-route-itemId="@ViewData["ItemId"]" formmethod="post" value="Delete">
+      <a asp-page="./Index"> | Return to table</a>
+    </form>
+
+    <br />
+</div>
