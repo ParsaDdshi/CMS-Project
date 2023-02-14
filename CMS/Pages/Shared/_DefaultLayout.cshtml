@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Admin | @ViewBag.Title</title>
+    <partial name="_MetaTags"/>
+    <partial name="_Styles"/>
+</head>
+<body>
+
+    <partial name="_Navbar"/>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <partial name="_Scripts"/>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
