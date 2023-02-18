@@ -1,0 +1,33 @@
+﻿@page
+@model CMS.Pages.Admin.ManageCategories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success" asp-page="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-9">
+      <table class="table">
+        <thead>
+          <partial name="_CategoryTableHeader"/>
+        </thead>
+        <tbody>
+          <partial name="_CategoryTable" model="@Model.Category"/>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Categories</h5>
+          <partial name="_Categories"/>
+        </div>
+      </div>
+    </div>
+</div>
+

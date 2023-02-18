@@ -60,7 +60,7 @@ namespace CMS.Pages.Admin
                     ItemViewModel.Picture.CopyTo(stream);
             }
 
-            _adminService.DeleteCategoryToItems(itemId);
+            _adminService.DeleteItemsFromCategoryToItems(itemId);
             _adminService.Save();
             if (SelectedGroups.Count > 0 && SelectedGroups.Any())
             {

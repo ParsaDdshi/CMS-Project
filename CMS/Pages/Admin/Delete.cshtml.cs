@@ -33,7 +33,7 @@ namespace CMS.Pages.Admin
         public IActionResult OnPost(int itemId)
         {
             _adminService.RemoveItem(itemId);
-            _adminService.DeleteCategoryToItems(itemId);
+            _adminService.DeleteItemsFromCategoryToItems(itemId);
             _adminService.Save();
 
             return RedirectToPage("Index");

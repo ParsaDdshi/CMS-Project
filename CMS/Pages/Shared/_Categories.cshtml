@@ -5,7 +5,7 @@
     @foreach (var item in _adminService.GetAllCategories())
     {
       <li>
-        <a asp-page="ShowItemsByCategory"
+        <a asp-page="/Admin/ShowItemsByCategory"
           asp-route-categoryId="@item.CategoryId"
           asp-route-categoryName="@item.CategoryName">@item.CategoryName
         </a>
