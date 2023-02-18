@@ -71,7 +71,8 @@ namespace CMS.Controllers
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim("Email", user.Email),
                 new Claim("Password", user.Password),
-                new Claim("RegisterDate", user.RegisterDate.ToString())
+                new Claim("RegisterDate", user.RegisterDate.ToString()),
+                new Claim("IsAdmin", user.IsAdmin.ToString())
             };
 
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
