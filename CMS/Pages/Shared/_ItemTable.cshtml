@@ -1,0 +1,6 @@
+﻿@model List<Item>
+
+@foreach (var item in Model)
+{
+  <partial name="_ItemTableRow" model="item"/>
+}

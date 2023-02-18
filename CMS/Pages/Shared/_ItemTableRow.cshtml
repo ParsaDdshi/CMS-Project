@@ -1,0 +1,13 @@
+﻿@model Item
+
+  <tr>
+    <td><img src="/assets/img/@(Model.ItemId).jpg" class="admin-index-img-size"></td>
+    <td>@Model.Title</td>
+    <td>@Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</td>
+    <td>@Model.Views</td>
+    <td class="col-3">
+      <a class="btn btn-danger" asp-page="Delete" asp-route-itemId="@Model.ItemId">Delete</a>
+      <a class="btn btn-warning" asp-page="Edit" asp-route-itemId="@Model.ItemId">Edit</a>
+      <a class="btn btn-info" asp-page="Details" asp-route-itemId="@Model.ItemId">Details</a>
+    </td>
+  </tr>
