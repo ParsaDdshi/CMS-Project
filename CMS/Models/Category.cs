@@ -10,6 +10,6 @@ namespace CMS.Models
         public string CategoryName { get; set; }
 
         // Navigation Property
-        public List<CategoryToItem> CategoriesToItems { get; set; }
+        public List<CategoryToItem>? CategoriesToItems { get; set; }
     }
 }
