@@ -14,7 +14,7 @@ namespace CMS.Services.Interfaces
         AdminItemViewModel GetItemViewModelById(int itemId);
         Item GetItemById(int itemId);
         List<int> GetItemCategoryId(int itemId);
-        void DeleteCategoryToItems(int itemId);
+        void DeleteItemsFromCategoryToItems(int itemId);
         void RemoveItem(int itemId);
 
         #endregion
@@ -29,7 +29,17 @@ namespace CMS.Services.Interfaces
         void RemoveUserFavItems(int userId);
         List<User> GetUsersByRole(bool isAdmin);
 
-        #endregion 
+        #endregion
+
+        #region Category Admin Section
+
+        void InsertCategory(Category category);
+        Category GetCategoryById(int categoryId);
+        bool IsCategoryExist(int categoryId);
+        void RemoveCategory(Category category);
+        void DeletCategoriesFromCategoryToItems(int categoryId);
+
+        #endregion
         void Save();
     }
 }

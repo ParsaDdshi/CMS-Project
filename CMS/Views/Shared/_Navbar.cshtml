@@ -22,6 +22,12 @@
           <li><a asp-controller="Home" asp-action="About">About</a></li>
           <partial name="_CategoriesInNavbar"/>
           <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+          @if (User.Identity.IsAuthenticated && bool.Parse(User.FindFirst("IsAdmin").Value))
+          {
+            <li class="nav-item">
+              <a class="nav-link" asp-page="/Admin/Index">Admin Panel</a>
+            </li>
+          }
         </ul>
       </nav>
     </div>

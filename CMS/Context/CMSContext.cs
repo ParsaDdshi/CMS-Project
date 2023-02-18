@@ -167,6 +167,23 @@ namespace CMS.Context
             );
             #endregion
 
+            #region User Seed Date
+
+            modelBuilder.Entity<User>()
+                .HasData(
+                    new User()
+                    {
+                        UserId = 1,
+                        UserName = "admin",
+                        Email = "admin@gmail.com",
+                        IsAdmin = true,
+                        Password = "admin123",
+                        RegisterDate = DateTime.Now
+                    }
+                );
+
+            #endregion
+
             base.OnModelCreating(modelBuilder);
         }
     }

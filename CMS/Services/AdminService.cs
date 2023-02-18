@@ -44,7 +44,7 @@ namespace CMS.Services
 
         public Item GetItemById(int itemId) => _itemService.GetItemById(itemId);
 
-        public void DeleteCategoryToItems(int itemId) => _context.CategoriesToItems
+        public void DeleteItemsFromCategoryToItems(int itemId) => _context.CategoriesToItems
             .Where(i => i.ItemId == itemId).ToList().ForEach(i => _context.CategoriesToItems.Remove(i));
 
         public void RemoveItem(int itemId)
@@ -73,6 +73,22 @@ namespace CMS.Services
         public List<User> GetUsersByRole(bool isAdmin) => isAdmin == true ? 
             _context.Users.Where(u => u.IsAdmin == isAdmin).ToList() : 
             _context.Users.Where(u => u.IsAdmin == isAdmin).ToList();
+
+        #endregion
+
+        #region Category Admin Section
+
+        public void InsertCategory(Category category) => _context.Categories.Add(category);
+
+        public Category GetCategoryById(int categoryId) => _context.Categories
+            .FirstOrDefault(c => c.CategoryId == categoryId);
+
+        public bool IsCategoryExist(int categoryId) => _context.Categories.Any(c => c.CategoryId == categoryId);
+
+        public void RemoveCategory(Category category) => _context.Categories.Remove(category);
+
+        public void DeletCategoriesFromCategoryToItems(int categoryId) => _context.CategoriesToItems
+            .Where(i => i.ItemId == categoryId).ToList().ForEach(i => _context.CategoriesToItems.Remove(i));
 
         #endregion
 
