@@ -1,0 +1,25 @@
+﻿<div class="col-md-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Roles</h5>
+        <ul>
+          <li>
+              <a
+                  asp-page="/Admin/ManageUsers/ShowUsersByRole"
+                  asp-route-isAdmin="@true"
+                  asp-route-role="Admins">
+                  Admins
+              </a>
+          </li>
+          <li>
+              <a
+                  asp-page="/Admin/ManageUsers/ShowUsersByRole"
+                  asp-route-isAdmin="@false"
+                  asp-route-role="Normal Users">
+                  Normal Users
+              </a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>
