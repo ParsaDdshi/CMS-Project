@@ -1,0 +1,24 @@
+﻿@model User
+
+<tr>
+  <td>
+    @Html.DisplayFor(modelItem => Model.UserName)
+  </td>
+  <td>
+    @Html.DisplayFor(modelItem => Model.Email)
+  </td>
+  <td>
+    @Html.DisplayFor(modelItem => Model.Password)
+  </td>
+  <td>
+    @Html.DisplayFor(modelItem => Model.RegisterDate)
+  </td>
+  <td>
+    @Html.DisplayFor(modelItem => Model.IsAdmin)
+  </td>
+  <td>
+    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@Model.UserId">Edit</a> |
+    <a class="btn btn-info" asp-page="./Details" asp-route-id="@Model.UserId">Details</a> |
+    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@Model.UserId">Delete</a>
+  </td>
+</tr>

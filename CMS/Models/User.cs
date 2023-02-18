@@ -27,6 +27,6 @@ namespace CMS.Models
         public bool IsAdmin { get; set; }
 
         // Navigation Property
-        public List<UserFavouriteItem> UserFavouriteItems { get; set; }
+        public List<UserFavouriteItem>? UserFavouriteItems { get; set; }
     }
 }
