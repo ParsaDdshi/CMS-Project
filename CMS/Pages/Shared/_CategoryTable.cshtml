@@ -1,0 +1,14 @@
+﻿@model List<Category>
+
+@foreach (var item in Model)
+{
+  <tr>
+    <td>
+      @Html.DisplayFor(modelItem => item.CategoryName)
+    </td>
+    <td>
+      <a asp-page="./Edit" asp-route-id="@item.CategoryId" class="btn btn-warning">Edit</a> |
+      <a asp-page="./Delete" asp-route-id="@item.CategoryId" class="btn btn-danger">Delete</a>
+    </td>
+  </tr>
+}
