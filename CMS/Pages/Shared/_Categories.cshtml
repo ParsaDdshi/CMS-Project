@@ -1,0 +1,15 @@
+﻿@using CMS.Services.Interfaces;
+@inject IAdminService _adminService
+
+  <ul>
+    @foreach (var item in _adminService.GetAllCategories())
+    {
+      <li>
+        <a asp-page="ShowItemsByCategory"
+          asp-route-categoryId="@item.CategoryId"
+          asp-route-categoryName="@item.CategoryName">@item.CategoryName
+        </a>
+      </li>
+    }
+
+  </ul>
