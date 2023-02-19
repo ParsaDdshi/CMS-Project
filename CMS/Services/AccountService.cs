@@ -32,7 +32,7 @@ namespace CMS.Services
         public User GetUserForLogin(string userNameOrEmail, string password)
         {
             return _context.Users.SingleOrDefault(u =>
-                (u.UserName == userNameOrEmail || u.Email == userNameOrEmail) && u.Password == password);
+                (u.UserName == userNameOrEmail || u.Email == userNameOrEmail.ToLower()) && u.Password == password);
         }
 
         public User GetUserById(int userId) => _context.Users.SingleOrDefault(u => u.UserId == userId);

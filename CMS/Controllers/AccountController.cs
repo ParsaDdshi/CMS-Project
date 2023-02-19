@@ -27,7 +27,7 @@ namespace CMS.Controllers
                 ModelState.AddModelError("Email", "The entered email is duplicate.");
                 return View(registerViewModel);
             }
-            if (_accountService.IsExistByUserName(registerViewModel.UserName.ToLower()))
+            if (_accountService.IsExistByUserName(registerViewModel.UserName))
             {
                 ModelState.AddModelError("UserName", "The entered user name is duplicate.");
                 return View(registerViewModel);
@@ -36,7 +36,7 @@ namespace CMS.Controllers
             User user = new User()
             {
                 Email = registerViewModel.Email.ToLower(),
-                UserName = registerViewModel.UserName.ToLower(),
+                UserName = registerViewModel.UserName,
                 Password= registerViewModel.Password,
                 RegisterDate= DateTime.Now
             };
@@ -57,7 +57,7 @@ namespace CMS.Controllers
             if(!ModelState.IsValid)
                 return View(loginViewModel);
 
-            User user = _accountService.GetUserForLogin(loginViewModel.UserNameOrEmail.ToLower(), loginViewModel.Password);
+            User user = _accountService.GetUserForLogin(loginViewModel.UserNameOrEmail, loginViewModel.Password);
 
             if (user == null)
             {
@@ -65,31 +65,14 @@ namespace CMS.Controllers
                 return View(loginViewModel);
             }
 
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim("UserId", user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim("Email", user.Email),
-                new Claim("Password", user.Password),
-                new Claim("RegisterDate", user.RegisterDate.ToString()),
-                new Claim("IsAdmin", user.IsAdmin.ToString())
-            };
-
-            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-            AuthenticationProperties properties = new AuthenticationProperties()
-            {
-                IsPersistent = loginViewModel.RememberMe
-            };
-
-            HttpContext.SignInAsync(principal, properties);
+            SignIn(user, loginViewModel.RememberMe);
 
             return Redirect("/");
         }
 
         public IActionResult Logout()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            SignOut();
             return Redirect("/");
         }
         #endregion
@@ -147,6 +130,10 @@ namespace CMS.Controllers
             user.UserName = editInformationViewModel.UserName;
 
             _accountService.Save();
+
+            bool rememberMe = bool.Parse(User.FindFirst("RememberMe").Value);
+            SignOut();
+            SignIn(user, rememberMe);
 
             return Redirect("UserProfile");
         }
@@ -219,5 +206,30 @@ namespace CMS.Controllers
             return RedirectToAction("UserFavouriteItems", "Account", new { userId = userId });
         }
         #endregion
+
+        private void SignIn(User user, bool rememberMe)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim("UserId", user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim("Email", user.Email),
+                new Claim("Password", user.Password),
+                new Claim("RegisterDate", user.RegisterDate.ToString()),
+                new Claim("IsAdmin", user.IsAdmin.ToString()),
+                new Claim("RememberMe", rememberMe.ToString())
+            };
+
+            ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            AuthenticationProperties properties = new AuthenticationProperties()
+            {
+                IsPersistent = rememberMe
+            };
+
+            HttpContext.SignInAsync(principal, properties);
+        }
+
+        private void SignOut() => HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }
