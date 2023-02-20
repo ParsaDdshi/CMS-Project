@@ -53,6 +53,8 @@ namespace CMS.Services
             _context.Items.Remove(item);
         }
 
+        public List<Item> ItemSearch(string search) => _itemService.Search(search);
+
         #endregion
 
         #region User Admin Section
@@ -74,6 +76,9 @@ namespace CMS.Services
             _context.Users.Where(u => u.IsAdmin == isAdmin).ToList() : 
             _context.Users.Where(u => u.IsAdmin == isAdmin).ToList();
 
+        public List<User> UserSearch(string search) => _context.Users
+            .Where(u => u.UserName.Contains(search) || u.Email.Contains(search)).ToList();
+
         #endregion
 
         #region Category Admin Section
@@ -89,6 +94,9 @@ namespace CMS.Services
 
         public void DeletCategoriesFromCategoryToItems(int categoryId) => _context.CategoriesToItems
             .Where(i => i.ItemId == categoryId).ToList().ForEach(i => _context.CategoriesToItems.Remove(i));
+
+        public List<Category> CategorySearch(string search) => _context.Categories
+            .Where(c => c.CategoryName.Contains(search)).ToList();
 
         #endregion
 

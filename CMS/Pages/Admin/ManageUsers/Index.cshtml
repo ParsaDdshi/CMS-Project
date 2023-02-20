@@ -5,11 +5,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Users</h1>
 
     <p>
         <a class="btn btn-success" asp-page="Create">Create New</a>
     </p>
+    <hr />
+
+    <form class="form-inline" asp-page="/Admin/ManageUsers/UserSearch" method="post">
+      <partial name="_SearchBox"/>
+    </form>
 
 <div class="row">
     <div class="col-md-9">

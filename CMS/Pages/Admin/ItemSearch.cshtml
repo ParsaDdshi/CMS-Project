@@ -1,20 +1,19 @@
 ﻿@page
-@model CMS.Pages.Admin.IndexModel
+@model CMS.Pages.Admin.ItemSearchModel
 @{
-    ViewBag.Title = "Manage Items";
+    ViewBag.Title = "Item Search";
 }
 
-<h3>Items</h3> 
+<h3>Item Search</h3> 
 <a asp-page="Add" class="btn btn-success">Add Item</a>
 <br />
 <hr />
 <form class="form-inline" asp-page="/Admin/ItemSearch" method="post">
   <partial name="_SearchBox"/>
 </form>
-
 <div class="row">
   <div class="col-md-9">
-    @if(Model.Items.Count() == 0)
+    @if (Model.Items.Count() == 0)
     {
       <div class="alert alert-danger">
         <h5>
@@ -44,4 +43,3 @@
     </div>
   </div>
 </div>
-

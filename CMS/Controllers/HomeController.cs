@@ -21,6 +21,9 @@ namespace CMS.Controllers
             var item = _itemService.GetItemById(id);
             var categories = _itemService.GetItemCategories(id);
 
+            if(item == null || categories == null)
+                return RedirectToAction("PageNotFound");
+
             DetailViewModel viewModel = new DetailViewModel()
             {
                 ItemId = item.ItemId,
@@ -40,6 +43,10 @@ namespace CMS.Controllers
         public IActionResult ShowItemsByCategory(int id, string categoryName)
         {
             List<Item> items = _itemService.GetCategoryItems(id);
+
+            if(items == null || categoryName == null)
+                return RedirectToAction("PageNotFound");
+
             ViewBag.CategoryName = categoryName;
             return View(items);
         }
@@ -56,6 +63,8 @@ namespace CMS.Controllers
         public IActionResult About() => View();
 
         public IActionResult Contact() => View();
+
+        public IActionResult PageNotFound() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
