@@ -1,5 +1,5 @@
 
-# Online Shop
+# Content Management System
 
 Hello, I am Parsa and I developed this website in my free time. this is a CMS-Project(Content Management System). In this site user can see diffrent items and their details. user can register in site and add items to his favourite list. his website have admin panel and admin can manage items, categories and users from it.
 
