@@ -78,11 +78,10 @@ namespace CMS.Controllers
         #endregion
 
         #region User Profile
+        [Authorize]
         public IActionResult UserProfile()
         {
             User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
-            if(user == null)
-                return NotFound();
 
             UserProfileViewModel userProfileViewModel = new UserProfileViewModel()
             {
@@ -96,11 +95,10 @@ namespace CMS.Controllers
         #endregion
 
         #region Edit Information
+        [Authorize]
         public IActionResult EditInformation()
         {
             User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
-            if (user == null)
-                return NotFound();
 
             EditInformationViewModel editInformationViewModel = new EditInformationViewModel()
             {
@@ -116,9 +114,6 @@ namespace CMS.Controllers
         public IActionResult EditInformation(EditInformationViewModel editInformationViewModel)
         {
             User user = _accountService.GetUserById(int.Parse(User.FindFirst("UserId").Value));
-
-            if (user == null)
-                return NotFound();
 
             if (editInformationViewModel.Password != user.Password)
             {
@@ -151,9 +146,6 @@ namespace CMS.Controllers
 
             if(!ModelState.IsValid)
                 return View(changePasswordViewModel);
-
-            if (user == null)
-                return NotFound();
 
             if (changePasswordViewModel.OldPassword != user.Password)
             {
@@ -188,6 +180,9 @@ namespace CMS.Controllers
         public IActionResult UserFavouriteItems(int userId)
         {
             List<Item> items = _accountService.GetUserFavouriteItems(userId);
+            
+            if(items == null)
+                return RedirectToAction("PageNotFound", "Home");
             return View(items);
         }
 
