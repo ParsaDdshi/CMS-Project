@@ -16,6 +16,7 @@ namespace CMS.Services.Interfaces
         List<int> GetItemCategoryId(int itemId);
         void DeleteItemsFromCategoryToItems(int itemId);
         void RemoveItem(int itemId);
+        List<Item> ItemSearch(string search);
 
         #endregion
 
@@ -28,6 +29,7 @@ namespace CMS.Services.Interfaces
         void RemoveUser(User user);
         void RemoveUserFavItems(int userId);
         List<User> GetUsersByRole(bool isAdmin);
+        List<User> UserSearch(string search);
 
         #endregion
 
@@ -38,6 +40,7 @@ namespace CMS.Services.Interfaces
         bool IsCategoryExist(int categoryId);
         void RemoveCategory(Category category);
         void DeletCategoriesFromCategoryToItems(int categoryId);
+        List<Category> CategorySearch(string search);
 
         #endregion
         void Save();
