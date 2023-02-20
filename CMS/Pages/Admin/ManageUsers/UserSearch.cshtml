@@ -1,0 +1,42 @@
+﻿@page
+@model CMS.Pages.Admin.ManageUsers.UserSearchModel
+@{
+    ViewData["Title"] = "User Search";
+}
+
+<h1>User Search</h1>
+
+    <p>
+        <a class="btn btn-success" asp-page="Create">Create New</a>
+    </p>
+    <br />
+    <hr />
+
+    <form class="form-inline" asp-page="/Admin/ManageUsers/UserSearch" method="post">
+      <partial name="_SearchBox"/>
+    </form>
+
+<div class="row">
+    <div class="col-md-9">
+        @if (Model.User.Count() == 0)
+        {
+              <div class="alert alert-danger">
+                <h5>
+                  There are no User to show.
+                </h5>
+              </div>
+        }
+        else
+        {
+              <table class="table">
+                <thead>
+                    <partial name="_UserTableHeader"/>
+                </thead>
+                <tbody>
+                    <partial name="_UserTable" model="@Model.User"/>
+                </tbody>
+              </table>
+        }
+    </div>
+    <partial name="_ManageUsersIndexSidebar"/>
+</div>

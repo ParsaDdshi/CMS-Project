@@ -16,44 +16,57 @@
 
 <section id="service-details" class="service-details">
   <div class="container" data-aos="fade-up">
-  <div class="row gy-4">
-    <div class="col-lg-4">
-      <div class="services-list">
+    <div class="row gy-4">
+      <div class="col-lg-4">
+        <div class="services-list">
           <h5>@Model.Title Groups</h5>
         @foreach (var item in Model.CategoriesName)
         {
           <a asp-controller="Home" asp-action="ShowItemsByCategory"
           asp-route-id="@item.CategoryId" asp-route-categoryName="@item.CategoryName">@item.CategoryName</a>
         }
-        @if (_accountService.IsItemExistInUFI(Model.ItemId, int.Parse(User.FindFirst("UserId").Value)))
+        </div>
+        @if(User.Identity.IsAuthenticated)
         {
-          <a asp-controller="Account" asp-action="RemoveItemFromUserFavItemsInDetailsPage"
-            asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)"  
-            class="btn btn-outline-danger">
-            <i class="bi bi-file-x-fill"></i>
-            remove @Model.Title from favourite list
-          </a>
+          <div class="text-center">
+          @if (_accountService.IsItemExistInUFI(Model.ItemId, int.Parse(User.FindFirst("UserId").Value)))
+          {
+            <a asp-controller="Account" asp-action="RemoveItemFromUserFavItemsInDetailsPage"
+              asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)"  
+              class="btn btn-outline-danger">
+              <i class="bi bi-file-x-fill"></i>
+                remove @Model.Title from favourite list
+            </a>
+          }
+          else
+          {
+            <a asp-controller="Account" asp-action="AddItemToUserFavItems" 
+              asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)" class="btn btn-outline-danger">
+              <i class="bi bi-heart text-center"></i>
+                Add @Model.Title to my favourite list
+            </a>
+          }
+          </div>
         }
         else
         {
-          <a asp-controller="Account" asp-action="AddItemToUserFavItems" 
-            asp-route-itemId="@Model.ItemId" asp-route-userId="@int.Parse(User.FindFirst("UserId").Value)" class="btn btn-outline-danger">
-              <i class="bi bi-heart"></i>
-              Add @Model.Title to my favourites
-          </a>
+          <div class="alert alert-warning">
+            If you want to add this item to your favourite items, first 
+            <a asp-controller="Account" asp-action="Login" class="text-decoration-none">login</a> to the site.
+          </div>   
         }
-      </div>  
     </div>
-    <div class="col-lg-8">
-      <h3>@Model.Title</h3>
-      <img src="/assets/img/@(Model.ItemId).jpg" alt="" class="img-fluid services-img">
-      <p>
-        @Model.Text
-      </p>
-      <p>
-        <span>Views : @Model.Views</span>
-        <span class="float-end">Create Date : @Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</span>
-      </p>
+      <div class="col-lg-8">
+        <h3>@Model.Title</h3>
+        <img src="/assets/img/@(Model.ItemId).jpg" alt="" class="img-fluid services-img">
+        <p>
+          @Model.Text
+        </p>
+        <p>
+          <span>Views : @Model.Views</span>
+          <span class="float-end">Create Date : @Model.CreateDate.ToString("yyyy/MM/dd HH:mm")</span>
+        </p>
+      </div>
     </div>
   </div>
 </section>

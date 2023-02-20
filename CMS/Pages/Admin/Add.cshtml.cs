@@ -37,11 +37,11 @@ namespace CMS.Pages.Admin
                 CreateDate = DateTime.Now,
                 Views = 0
             };
-            _adminService.InsertItem(item);
-            _adminService.Save();
 
             if(ItemViewModel.Picture?.Length > 0)
             {
+                _adminService.InsertItem(item);
+                _adminService.Save();
                 string filePath = Path.Combine(Directory.GetCurrentDirectory()
                     , "wwwroot"
                     , "assets"
@@ -56,7 +56,7 @@ namespace CMS.Pages.Admin
                 return Page();
             }
 
-            if(SelectedGroups.Count > 0 && SelectedGroups.Any()) 
+            if (SelectedGroups.Count > 0 && SelectedGroups.Any()) 
             {
                 foreach(int group in SelectedGroups)
                 {
